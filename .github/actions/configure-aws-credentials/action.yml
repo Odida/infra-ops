@@ -1,0 +1,21 @@
+name: "Fetch EC2 IAM Role Credentials & Login to ECR"
+description: "Manually retrieves AWS credentials from EC2 instance metadata (IMDSv2) and logs into Amazon ECR"
+author: "Douglas Odida"
+
+branding:
+  icon: "unlock"
+  color: "orange"
+
+inputs:
+  aws-region:
+    description: "AWS region to export as AWS_REGION and use for ECR login"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run credential fetch and ECR login
+      shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/entrypoint.sh"
+        "${{ github.action_path }}/entrypoint.sh" "${{ inputs.aws-region }}"

@@ -1,0 +1,38 @@
+repos:
+# - repo: https://github.com/rhysd/actionlint
+#   rev: v1.7.3  # Specify the latest version
+#   hooks:
+#     - id: actionlint
+#       name: GitHub Actions Workflow Linter
+#       files: ^\.github/workflows/.*\.ya?ml$
+
+# - repo: https://github.com/bridgecrewio/checkov
+#   rev: '3.2.254'  # Specify the latest version
+#   hooks:
+#     - id: checkov
+#       name: Checkov - Security and best practices scanner
+#       args: ['--framework', 'github_actions', '--quiet']
+#       files: ^\.github/workflows/.*\.ya?ml$
+#       types: [yaml]
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.6.0  # Use the latest release from the repo
+  hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-json
+    - id: check-merge-conflict
+    - id: check-yaml
+    - id: check-added-large-files
+    - id: check-symlinks
+    - id: pretty-format-json
+      args:
+      - --autofix
+      - --no-sort-keys
+
+- repo: https://github.com/shellcheck-py/shellcheck-py
+  rev: v0.10.0.1
+  hooks:
+    - id: shellcheck
+      args:
+        - --severity=error  # Optionally only show errors and warnings

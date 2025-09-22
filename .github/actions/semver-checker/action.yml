@@ -1,0 +1,11 @@
+name: "Semantic Version Checker"
+description: "Check if a Git tag follows semantic versioning"
+inputs:
+  tag:
+    description: "Tag to validate"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "${{ inputs.tag }}"

@@ -1,0 +1,27 @@
+name: "Install Trivy"
+description: "Module to install Trivy on an Ubuntu-based runner"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install prerequisites
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+
+    - name: Add Trivy GPG key and repository
+      shell: bash
+      run: |
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+
+    - name: Update and install Trivy
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y trivy
+
+    - name: Verify Trivy installation
+      shell: bash
+      run: trivy --version
